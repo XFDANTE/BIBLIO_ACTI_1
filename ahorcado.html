@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ahorcado Literario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+      background: #f4f4f4;
+    }
+    canvas {
+      background: #fff;
+      border: 1px solid #ccc;
+      margin: 20px auto;
+      display: block;
+    }
+    #palabraOculta {
+      font-size: 30px;
+      letter-spacing: 8px;
+      margin: 20px;
+    }
+    input[type="text"] {
+      font-size: 20px;
+      width: 50px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .pistas {
+      background: #fff;
+      padding: 20px;
+      max-width: 600px;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      text-align: left;
+    }
+    #mensaje {
+      font-weight: bold;
+      margin-top: 15px;
+      font-size: 18px;
+    }
+    /* Modal */
+    #modalLectura {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+    #modalLectura .contenido {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    #modalLectura .cerrar {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    #iframeLectura {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎭 Ahorcado Literario - Adivina el personaje misterioso</h1>
+<p>El juego consiste en un desafío de adivinanzas literarias. Los participantes deberán descifrar una serie de pistas para revelar la identidad de un autor clave de la literatura.</p>
+<canvas id="canvas" width="200" height="250"></canvas>
+
+<div class="pistas" id="pistas"></div>
+
+<div id="palabraOculta"></div>
+
+<input type="text" id="letra" maxlength="1" />
+<button onclick="adivinarLetra()">Adivinar Letra</button>
+
+<div id="mensaje"></div>
+
+<!-- Modal -->
+<div id="modalLectura">
+  <div class="contenido">
+    <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    <iframe id="iframeLectura" src=""></iframe>
+  </div>
+</div>
+
+<script>
+  const personajes = [
+    {
+      pistas: [
+        "Mariposas Amarillas: Mis visitantes traen un color de presagio...",
+        "Realismo Mágico: Lo imposible florece en mis palabras...",
+        "Cien Años: Mi memoria pesa un siglo..."
+      ],
+      respuesta: "GABRIEL GARCIA MARQUEZ"
+    },
+    {
+      pistas: [
+        "Dulcinea: Amor idealizado e imaginado.",
+        "Aventuras y Desventuras: Batallas y letras.",
+        "El Manco de Lepanto: Huella de guerra."
+      ],
+      respuesta: "MIGUEL DE CERVANTES SAAVEDRA"
+    },
+    {
+      pistas: [
+        "Hamlet: Ser o no ser...",
+        "Romeo y Julieta: Amor prohibido.",
+        "Versos y Sonetos: Rima clásica."
+      ],
+      respuesta: "WILLIAM SHAKESPEARE"
+    },
+    {
+      pistas: [
+        "Rimas con moraleja.",
+        "El renacuajo paseador.",
+        "Poeta de niños y adultos."
+      ],
+      respuesta: "RAFAEL POMBO"
+    },
+    {
+      pistas: [
+        "Romance trágico entre montañas.",
+        "Efraín y María.",
+        "Valle del Cauca."
+      ],
+      respuesta: "JORGE ISAACS"
+    },
+    {
+      pistas: [
+        "Antioquía y letras.",
+        "El Zarco.",
+        "Lenguaje popular."
+      ],
+      respuesta: "TOMAS CARRASQUILLA"
+    },
+    {
+      pistas: [
+        "Rabia en prosa.",
+        "La Virgen de los Sicarios.",
+        "No vine a agradar."
+      ],
+      respuesta: "FERNANDO VALLEJO"
+    },
+    {
+      pistas: [
+        "Selva y denuncia.",
+        "La Vorágine.",
+        "Poeta de la selva."
+      ],
+      respuesta: "JOSE EUSTASIO RIVERA"
+    },
+    {
+      pistas: [
+        "Amor a la revolución.",
+        "Residencia en la Tierra.",
+        "Premio Nobel chileno."
+      ],
+      respuesta: "PABLO NERUDA"
+    }
+  ];
+
+  let personaje, respuesta, oculta, intentos, errores;
+  const maxErrores = 6;
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  function iniciarJuego() {
+    personaje = personajes[Math.floor(Math.random() * personajes.length)];
+    respuesta = personaje.respuesta.toUpperCase();
+    oculta = respuesta.replace(/[A-ZÁÉÍÓÚÑ]/gi, c => c === " " ? " " : "_");
+    intentos = [];
+    errores = 0;
+    document.getElementById("palabraOculta").innerText = oculta;
+    document.getElementById("mensaje").innerText = "";
+    const pistasHTML = personaje.pistas.map((p, i) => `<p><strong>Pista ${i+1}:</strong> ${p}</p>`).join("");
+    document.getElementById("pistas").innerHTML = pistasHTML;
+    limpiarCanvas();
+    dibujarBase();
+  }
+
+  function adivinarLetra() {
+    const input = document.getElementById("letra");
+    const letra = input.value.toUpperCase();
+    input.value = "";
+    if (!letra.match(/[A-ZÑÁÉÍÓÚ]/) || letra.length !== 1) {
+      alert("Por favor, ingresa una letra válida.");
+      return;
+    }
+
+    if (intentos.includes(letra)) {
+      alert("Ya intentaste esa letra.");
+      return;
+    }
+
+    intentos.push(letra);
+
+    if (respuesta.includes(letra)) {
+      let nuevaOculta = "";
+      for (let i = 0; i < respuesta.length; i++) {
+        nuevaOculta += (respuesta[i] === letra) ? letra : oculta[i];
+      }
+      oculta = nuevaOculta;
+      document.getElementById("palabraOculta").innerText = oculta;
+      if (!oculta.includes("_")) {
+        document.getElementById("mensaje").innerText = "🎉 ¡Adivinaste! Era: " + respuesta;
+        setTimeout(mostrarModalLectura, 1000);
+      }
+    } else {
+      errores++;
+      dibujarParte(errores);
+      if (errores === maxErrores) {
+        document.getElementById("mensaje").innerText = "💀 ¡Perdiste! Era: " + respuesta;
+        document.getElementById("palabraOculta").innerText = respuesta;
+        setTimeout(iniciarJuego, 3000);
+      }
+    }
+  }
+
+  function limpiarCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function dibujarBase() {
+    ctx.beginPath();
+    ctx.moveTo(10, 230);
+    ctx.lineTo(190, 230);
+    ctx.moveTo(50, 230);
+    ctx.lineTo(50, 20);
+    ctx.lineTo(130, 20);
+    ctx.lineTo(130, 40);
+    ctx.stroke();
+  }
+
+  function dibujarParte(error) {
+    ctx.beginPath();
+    switch(error) {
+      case 1: ctx.arc(130, 60, 20, 0, Math.PI * 2); break; // cabeza
+      case 2: ctx.moveTo(130, 80); ctx.lineTo(130, 140); break; // cuerpo
+      case 3: ctx.moveTo(130, 100); ctx.lineTo(100, 120); break; // brazo izq
+      case 4: ctx.moveTo(130, 100); ctx.lineTo(160, 120); break; // brazo der
+      case 5: ctx.moveTo(130, 140); ctx.lineTo(110, 180); break; // pierna izq
+      case 6: ctx.moveTo(130, 140); ctx.lineTo(150, 180); break; // pierna der
+    }
+    ctx.stroke();
+  }
+
+  function mostrarModalLectura() {
+    document.getElementById("iframeLectura").src = "lectura.html";
+    document.getElementById("modalLectura").style.display = "block";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modalLectura").style.display = "none";
+    document.getElementById("iframeLectura").src = "";
+    iniciarJuego();
+  }
+
+  iniciarJuego();
+</script>
+
+</body>
+</html>

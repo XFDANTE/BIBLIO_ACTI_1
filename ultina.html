@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dinámica Literaria con Imágenes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      color: #333;
+      text-align: center;
+    }
+
+    header {
+      background-color: #ffafbd;
+      padding: 1rem;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .intro {
+      font-size: 1.2rem;
+      background-color: #fff3e6;
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .rima-box {
+      display: none;
+      font-size: 1.3rem;
+      background: #ffe0f0;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .rima-box img {
+      width: 300px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 15px;
+      margin-top: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .boton {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      background: #ff6f61;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .boton:hover {
+      background: #ff3f31;
+    }
+
+    @media (max-width: 600px) {
+      .intro, .rima-box {
+        font-size: 1rem;
+      }
+
+      .boton {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    ✨ ¡A divertirnos, vamos a jugar! ✨
+  </header>
+
+  <div class="container">
+    <div class="intro">
+      <p><strong>¡COMPARTIENDO ESTAS RIMAS PARA CONTINUAR!</strong></p>
+      <p><em>Dinámica:</em> Cada pareja recitará la rima en CORO y en voz alta. Posteriormente, realizarán la actividad visual correspondiente a la imagen asignada.</p>
+    </div>
+
+    <div id="rimaBox" class="rima-box"></div>
+    
+    <button class="boton" onclick="mostrarRima()">Siguiente</button>
+  </div>
+
+  <script>
+    const rimas = [ 
+    {
+        texto: "✨ Que el saber no pesa y el libro nos da fortaleza.",
+        imagen: "galeria_aleatoria/1.jpg"
+    },
+    {
+        texto: "📚 Hoy no hay tristeza, solo letras y belleza.",
+        imagen: "galeria_aleatoria/2.jpg"
+    },
+    {
+        texto: "🎲 Con historias en la mente, ¡jugamos alegremente!",
+        imagen: "galeria_aleatoria/3.jpg"
+    },
+    {
+        texto: "📖 Abre un libro y verás, que el mundo cambia sin más.",
+        imagen: "galeria_aleatoria/4.jpg"
+    },
+    {
+        texto: "🧠 Leer no es castigo, ¡es viajar contigo!",
+        imagen: "galeria_aleatoria/5.jpg"
+    },
+    {
+        texto: "🤓 Un verso por aquí, una risa por allá, ¡qué viva la literatura ya!",
+        imagen: "galeria_aleatoria/6.jpg"
+    },
+    {
+        texto: "🪄 Entre letras y emoción, empieza nuestra diversión.",
+        imagen: "galeria_aleatoria/7.jpg"
+    },
+    {
+        texto: "🔮 Con pluma, tinta y papel… ¡la imaginación es miel!",
+        imagen: "galeria_aleatoria/8.jpg"
+    },
+    {
+        texto: "🎭 De Macondo a la Mancha, ¡que la lectura nunca se estanca!",
+        imagen: "galeria_aleatoria/9.jpg"
+    },
+    {
+        texto: "💬 Cada página es una puerta, y el saber, quien la despierta.",
+        imagen: "galeria_aleatoria/10.jpg"
+    },
+    {
+        texto: "📚 De página en página, vamos sin prisa, ¡el que lee siempre aterriza con risa!",
+        imagen: "galeria_aleatoria/11.jpg"
+    },
+    {
+        texto: "🎭 No hay preguntas tontas, solo emoción, ¡suelta el saber con el corazón!",
+        imagen: "galeria_aleatoria/12.jpg"
+    },
+    {
+        texto: "✍️Con tinta y palabra comienza el festín, ¡que gane quien rime, o al menos lo intente al fin!",
+        imagen: "galeria_aleatoria/13.jpg"
+    },
+    {
+        texto: "📖Lee un poema, responde con destreza, que el saber es juego y pura nobleza.",
+        imagen: "galeria_aleatoria/14.jpg"
+    },
+    {
+        texto: "🔥Con letra y rima todo se enciende, ¡el que se atreva, que no se arrepiente!",
+        imagen: "galeria_aleatoria/15.jpg"
+    },
+    {
+        texto: "🎩No importa si fallas, lo bueno es jugar, ¡porque con los libros se aprende a soñar!",
+        imagen: "galeria_aleatoria/16.jpg"
+    },
+    {
+        texto: "🌟Gira la suerte, toca pensar, ¡el alma lectora va a despertar!",
+        imagen: "galeria_aleatoria/17.jpg"
+    },
+    {
+        texto: "✨Un libro en la mano, la mente en el cielo, ¡responde, actúa, sube tu anhelo!",
+        imagen: "galeria_aleatoria/18.jpg"
+    },
+    {
+        texto: "🕯️En cada pregunta hay una aventura, ¡responde y gana con tu lectura!",
+        imagen: "galeria_aleatoria/19.jpg"
+    },
+    {
+        texto: "🎲Verso y prosa nos hacen volar, ¡qué viva la letra, vamos a jugar!",
+        imagen: "galeria_aleatoria/20.jpg"
+    },
+    {
+        texto: "✨Ya llega la ronda, atentos están, ¡con mente brillante todos jugarán!",
+        imagen: "galeria_aleatoria/21.jpg"
+    },
+    {
+        texto: "🔍 Busca en tus libros, busca en tu voz, ¡responde con ritmo y asombra a los dos!",
+        imagen: "galeria_aleatoria/22.jpg"
+    },
+    {
+        texto: "📖 Si sabes, responde; si no, ¡improvisa!, que en este juego ¡hasta el error da risa!",
+        imagen: "galeria_aleatoria/23.jpg"
+    }
+    ];
+
+
+    let disponibles = [...rimas]; // Copia para aleatorizar sin repetir
+  const box = document.getElementById('rimaBox');
+
+  function mostrarRima() {
+    if (disponibles.length > 0) {
+      const randomIndex = Math.floor(Math.random() * disponibles.length);
+      const rima = disponibles.splice(randomIndex, 1)[0]; // Extrae y elimina
+
+      box.style.display = 'block';
+      box.innerHTML = `
+        <div>${rima.texto}</div>
+        <img src="${rima.imagen}" alt="Imagen relacionada a la rima" />
+      `;
+    } else {
+      box.innerHTML = "🎉 ¡Has llegado al final de las rimas! Ahora, ¡a jugar en grande!";
+    }
+  }
+  </script>
+
+</body>
+</html>

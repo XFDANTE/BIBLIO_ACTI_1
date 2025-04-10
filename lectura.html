@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lectura en Voz Alta</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f8f9fa, #e0eafc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 2rem;
+      margin: 20px;
+    }
+
+    #fragmento {
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 20px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      font-size: 1.1rem;
+      transition: all 0.5s ease;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      #fragmento {
+        font-size: 1rem;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎙️ Lectura en Voz Alta: Dando Vida a los Fragmentos</h1>
+  <div id="fragmento">
+    Presiona el botón para descubrir un fragmento literario.
+  </div>
+  <button onclick="mostrarFragmento()">📖 Leer Fragmento</button>
+  <br><br>
+  <button onclick="window.location.href='ultina.html'">🚀 Fase Final</button>
+  <script>
+const fragmentos = [
+  {
+    autor: "William Shakespeare",
+    obra: "Hamlet",
+    acto_capitulo: "Acto III, Escena I",
+    fragmento: `Ser o no ser, esa es la cuestión. ¿Cuál es más noble para el alma, sufrir los golpes y dardos de la fortuna injusta, o armarse contra un mar de calamidades y, haciéndoles frente, acabar con ellas? Morir, dormir... nada más; y decir que con un sueño acabamos el dolor del corazón y los mil naturales sobresaltos que son herencia de la carne... ¡Es un final deseable! Morir, dormir... ¡dormir! Tal vez soñar...`
+  },
+  {
+    autor: "William Shakespeare",
+    obra: "Romeo y Julieta",
+    acto_capitulo: "Acto II, Escena II",
+    fragmento: `¡Pero, silencio! ¿Qué luz se abre paso a través de aquella ventana? ¡Es el Oriente, y Julieta, el sol! ¡Surge, hermoso sol, y mata a la envidiosa luna, que se muestra pálida y macilenta de despecho, porque tú, su doncella, eres más hermosa que ella! ¡No la sirvas, puesto que es envidiosa! Su traje de vestal es de un verde enfermizo, y sólo los locos lo usan. ¡Deséchalo!`
+  },
+  {
+    autor: "Miguel de Cervantes Saavedra",
+    obra: "Don Quijote de la Mancha",
+    acto_capitulo: "Parte I, Capítulo I",
+    fragmento: `En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga antigua, rocín flaco y galgo corredor. Una olla de algo más vaca que carnero, salpicón las más noches, duelos y quebrantos los sábados, lentejas los viernes, algún palomino de añadidura los domingos, consumían las tres partes de su hacienda. El resto della concluían sayo de velarte, calzas de velludo para las fiestas, con sus pantuflos de lo mesmo, y los días de entre semana se honraba con su vellorí de lo más fino.`
+  },
+  {
+    autor: "Miguel de Cervantes Saavedra",
+    obra: "Don Quijote de la Mancha",
+    acto_capitulo: "Parte II, Capítulo VIII",
+    fragmento: `En esto, descubrieron treinta o cuarenta molinos de viento que había en aquel campo, y, así como Don Quijote los vio, dijo a su escudero: -La ventura va guiando nuestras cosas mejor de lo que acertáramos a desear; porque ves allí, amigo Sancho Panza, donde se descubren treinta o poco más desaforados gigantes, con quien pienso hacer batalla y quitarles a todos las vidas, con cuyos despojos comenzaremos a enriquecer; que ésta es buena guerra, y es gran servicio de Dios quitar tan mala simiente de sobre la faz de la tierra.  `
+  },
+  {
+    autor: "Gabriel García Márquez",
+    obra: "Cien años de soledad",
+    fragmento: `Muchos años después, frente al pelotón de fusilamiento, el coronel Aureliano Buendía había de recordar aquella tarde remota en que su padre lo llevó a conocer el hielo. Macondo era entonces una aldea de veinte casas de barro y cañabrava construidas a la orilla de un río de aguas diáfanas que se precipitaban por un lecho de piedras pulidas, blancas y enormes como huevos prehistóricos. El mundo era tan reciente, que muchas cosas carecían de nombre, y para mencionarlas había que señalarlas con el dedo.`
+  },
+  {
+    autor: "Pablo Neruda",
+    obra: "Walking around",
+    fragmento: `Sucede que me canso de ser hombre. Sucede que entro en las sastrerías y en los cines marchito, impenetrable, como un cisne de fieltro navegando en un agua de origen y ceniza. El olor de las peluquerías me hace llorar a gritos. Sólo quiero un descanso de piedras o de lana, sólo quiero no ver establecimientos ni jardines, ni mercaderías, ni anteojos, ni ascensores." (Walking around).`
+  },
+  {
+    autor: "Jorge Luis Borges",
+    obra: "Poema de los dones",
+    fragmento: `Nadie rebaje a lágrima o reproche esta declaración de la maestría de Dios, que con magnífica ironía me dio a la vez los libros y la noche. Este instrumento prodigioso, el libro, que es extensión de la memoria y la imaginación. Los símbolos de la humanidad con sus diversas pasiones y creencias. El tiempo, el espacio y la muerte. Y la ceguera, mi compañera." (Poema de los dones).`
+  },
+  {
+    autor: "Julio Cortázar",
+    obra: "Rayuela",
+    fragmento: `Andábamos sin buscarnos, pero sabiendo que andábamos para encontrarnos. Vos me buscabas en el bar, yo te buscaba en la calle, nos buscábamos sin encontrarnos. Y un día, por fin, nos encontramos. Nos encontramos en el momento exacto, en el lugar exacto. Y desde ese día, ya nada fue igual." (Rayuela).`
+  },
+  {
+    autor: "Jane Austen",
+    obra: "Orgullo y prejuicio",
+    fragmento: `Es una verdad mundialmente reconocida que un hombre soltero, poseedor de una gran fortuna, necesita una esposa. Sin embargo, poco se sabe de los sentimientos o las opiniones de un hombre así cuando entra en posesión de una gran fortuna, y rara vez puede decirse que, por muy asentados que estén los sentimientos de su vecindario, este o aquel hombre en particular contemplan sus designios.`
+  },
+  {
+    autor: "Ernest Hemingway",
+    obra: "El viejo y el mar",
+    fragmento: `El viejo era flaco y desgarbado, con hondas arrugas en la nuca. Y las manos le tenían las hondas cicatrices de sujetar con fuerza las cuerdas de los grandes peces. Pero ninguna de estas cicatrices era reciente. Todas eran tan viejas como las erosiones de un árido desierto. Todo en él era viejo, salvo sus ojos, que eran del color del mar, y alegres e indestructibles.`
+  },
+  {
+    autor: "Virginia Woolf",
+    obra: "La señora Dalloway",
+    fragmento: `La señora Dalloway dijo que ella misma compraría las flores. Pues Lucy tenía mucho trabajo. Se iban a celebrar embajadas, como siempre, y Clarissa pensó que qué delicia sería comprar las flores. No ella misma, desde luego, sino Lucy. Pero bastaba con decir que ella misma las compraría, y así lo hizo. ¡Qué mañana! Como para niños que se paran en la calle, y ¡qué frío! ¡Qué golpe de aire! (Pues incluso en Pall Mall el aire, cuando se abren las ventanas en los días de verano, tiene un golpe azulado, un algo de ola).`
+  },
+  {
+    autor: "Julio Verne",
+    obra: "De la tierra a la luna",
+    fragmento: `"¡Adiós, cielo tan amado! ¡Adiós, campos de la infancia! ¡Adiós, sueños de razón! ¡Quizá algún día vuelva a veros! Pero ¡adiós, pues! ¡Voy a convertirme en un alma errante! ¡Voy a vagar por los espacios celestes! ¡Voy a atravesar los mundos! ¡Voy a penetrar en todos los misterios!`
+  },
+  {
+    autor: "Julio Cortázar",
+    obra: "Rayuela",
+    fragmento: `Lo que mucha gente llama amar consiste en elegir a una mujer y casarse con ella. La eligen, te lo juro, los he visto. Como si se pudiese elegir en el amor, como si no fuera un rayo que te parte los huesos y te deja estaqueado en la mitad 1 del patio...`
+  },
+  {
+    autor: "Franz Kafka",
+    obra: "La metamorfosis",
+    fragmento: `Al despertar Gregorio Samsa una mañana, tras un sueño intranquilo, se encontró en su cama convertido en un monstruoso insecto. 1 estaba echado de espaldas sobre su duro caparazón, y, al alzar un poco la cabeza, vio la figura convexa de su vientre oscuro, surcado por duras placas arqueadas, cuya elevación apenas podía sostener la colcha, que ya se había deslizado hasta el suelo.`
+  }
+];
+
+
+function mostrarFragmento() {
+  const randomIndex = Math.floor(Math.random() * fragmentos.length);
+  const fragmento = fragmentos[randomIndex];
+
+  const textoHTML = `
+    <p><em>"${fragmento.fragmento}"</em></p>
+    <p><strong>— ${fragmento.autor}</strong></p>
+    <p><small><strong>${fragmento.obra}</strong>${fragmento.acto_capitulo ? `, ${fragmento.acto_capitulo}` : ''}</small></p>
+  `;
+
+  document.getElementById('fragmento').innerHTML = textoHTML;
+
+  // Lectura en voz alta
+//   const speech = new SpeechSynthesisUtterance(fragmento.fragmento);
+//   speech.lang = 'es-ES'; // Cambia si quieres otro acento
+//   speech.pitch = 1;
+//   speech.rate = 1;
+//   speech.volume = 1;
+//   window.speechSynthesis.speak(speech);
+}
+
+  </script>
+
+</body>
+</html>
