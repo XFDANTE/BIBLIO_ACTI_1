@@ -228,20 +228,25 @@
     }
   
     window.verificarRespuesta = function (respuestaCorrecta, penitencia) {
-      const respuesta = document.getElementById("respuestaUsuario").value.trim();
-      if (respuesta.toLowerCase() === respuestaCorrecta.toLowerCase()) {
-        aciertos++;
-        if (aciertos < 2) {
-          mostrarPregunta();
-        } else {
-          document.getElementById("zonaPregunta").innerHTML = `<p class='text-success'>🎉 ¡Has completado la Fase 1! Pronto inicia la Fase 2...</p>`;
-        }
-      } else {
-        document.getElementById("penitenciaTexto").innerHTML = `<p>${penitencia}</p>`;
-        const penitenciaModal = new bootstrap.Modal(document.getElementById("modalPenitencia"));
-        penitenciaModal.show();
-      }
-    };
+  const respuesta = document.getElementById("respuestaUsuario").value.trim();
+  if (respuesta.toLowerCase() === respuestaCorrecta.toLowerCase()) {
+    aciertos++;
+    if (aciertos < 2) {
+      mostrarPregunta();
+    } else {
+      document.getElementById("zonaPregunta").innerHTML = `<p class='text-success'>🎉 ¡Has completado la Fase 1! Pronto inicia la Fase 2...</p>`;
+      // Redirigir a index2.html después de 3 segundos
+      setTimeout(() => {
+        window.location.href = "index2.html";
+      }, 3000);
+    }
+  } else {
+    document.getElementById("penitenciaTexto").innerHTML = `<p>${penitencia}</p>`;
+    const penitenciaModal = new bootstrap.Modal(document.getElementById("modalPenitencia"));
+    penitenciaModal.show();
+  }
+};
+
   </script>
   
 
