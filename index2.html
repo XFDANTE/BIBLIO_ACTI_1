@@ -124,7 +124,7 @@
 
 
         // Preguntas para el juego
-    const preguntas = [
+        const preguntas = [
     {
         pregunta: "¿Quién escribió Don Quijote de la Mancha, considerada la primera novela moderna?",
         respuesta: "Miguel de Cervantes",
@@ -142,8 +142,23 @@
     },
     {
         pregunta: "¿En qué idioma escribió William Shakespeare sus obras?",
-        respuesta: "inglés",
+        respuesta: "Inglés",
         penitencia: "🎤 Recita con voz dramática: “Ser o no ser, esa es la cuestión”."
+    },
+    {
+        pregunta: "¿Quién fue el autor peruano que escribió Comentarios Reales de los Incas?",
+        respuesta: "Inca Garcilaso de la Vega",
+        penitencia: "🎤 Improvisa un poema con las palabras: “libro”, “amor” y “aventura”."
+    },
+    {
+        pregunta: "¿Qué tienen en común Cervantes, Shakespeare e Inca Garcilaso de la Vega con el 23 de abril?",
+        respuesta: "Todos murieron en fechas cercanas o el mismo día (23 de abril de 1616)",
+        penitencia: "📜 Recita un breve homenaje a los tres autores como si estuvieras en una ceremonia."
+    },
+    {
+        pregunta: "¿Cómo se llama el mítico pueblo ficticio creado por Gabriel García Márquez?",
+        respuesta: "Macondo",
+        penitencia: "🎭 Di con voz de telenovela: “¡Macondo, jamás te olvidaré!” mirando al horizonte dramáticamente."
     },
     {
         pregunta: "¿Qué obra comienza con la famosa frase: “Muchos años después, frente al pelotón de fusilamiento…”?",
@@ -151,71 +166,92 @@
         penitencia: "🎬 Haz una escena de telenovela en cámara lenta cayendo al suelo como si te dispararan."
     },
     {
-        pregunta: "¿Cómo se llama el mítico pueblo ficticio creado por Gabriel García Márquez?",
-        respuesta: "Macondo",
-        penitencia: "🌴 Di con voz de telenovela: “¡Macondo, jamás te olvidaré!” mirando al horizonte dramáticamente."
+        pregunta: "¿Con qué apodo cariñoso se conocía a Gabriel García Márquez?",
+        respuesta: "Gabo",
+        penitencia: "🙇‍♂️ Di tres veces seguidas: “Gabo, gran genio de las letras” mientras haces reverencias."
     },
     {
-        pregunta: "¿Qué famoso poeta chileno escribió los “Veinte poemas de amor y una canción desesperada”?",
+        pregunta: "¿Qué personaje de Cien años de soledad ascendió al cielo en cuerpo y alma?",
+        respuesta: "Remedios la Bella",
+        penitencia: "🕊️ Gira sobre ti mismo con los brazos abiertos como si volaras al cielo, diciendo “¡Adiós, mundo terrenal!”"
+    },
+    {
+        pregunta: "¿Cuál fue la profesión principal de Gabo antes de ser novelista famoso?",
+        respuesta: "Periodista",
+        penitencia: "📰 Imita a un reportero en vivo dando la noticia de que Macondo fue tragado por un huracán mágico."
+    },
+    {
+        pregunta: "¿En qué año ganó Gabriel García Márquez el Premio Nobel de Literatura?",
+        respuesta: "1982",
+        penitencia: "🏆 Haz tu propio discurso de aceptación diciendo: “Agradezco este Nobel por mis esfuerzos en salvar los libros del olvido...” con tono épico."
+    },
+    {
+        pregunta: "¿Cómo se llama el mítico pueblo ficticio creado por Gabriel García Márquez?",
+        respuesta: "Macondo",
+        penitencia: "🌸 Macondo duerme entre mariposas doradas,\nsoñando con amores que el tiempo no borra."
+    },
+    {
+        pregunta: "¿Qué obra comienza con la famosa frase: “Muchos años después, frente al pelotón de fusilamiento…”?",
+        respuesta: "Cien años de soledad",
+        penitencia: "🌸 Frente al pelotón, el tiempo se hizo espiral,\ny en cada bala, latía un recuerdo inmortal."
+    },
+    {
+        pregunta: "¿Con qué apodo cariñoso se conocía a Gabriel García Márquez?",
+        respuesta: "Gabo",
+        penitencia: "🌸 Le decían Gabo, tejedor de realidades,\nun alma de tinta que vivía en mil ciudades."
+    },
+    {
+        pregunta: "¿Qué personaje de Cien años de soledad ascendió al cielo en cuerpo y alma?",
+        respuesta: "Remedios la Bella",
+        penitencia: "🌸 Bella y etérea, Remedios al cielo voló,\ny el viento de Macondo su perfume guardó."
+    },
+    {
+        pregunta: "¿Cuál fue la profesión principal de Gabo antes de ser novelista famoso?",
+        respuesta: "Periodista",
+        penitencia: "🌸 Con pluma de fuego y verdad en el papel,\nGabo fue cronista del mundo cruel y fiel."
+    },
+    {
+        pregunta: "¿Qué famoso poeta chileno escribió los Veinte poemas de amor y una canción desesperada?",
         respuesta: "Pablo Neruda",
         penitencia: "💌 Recita con voz intensa una declaración de amor improvisada al estilo de Neruda."
     },
     {
-        pregunta: "¿Qué novela escrita por George Orwell presenta un mundo distópico donde 'el Gran Hermano te vigila'?",
-        respuesta: "1984",
-        penitencia: "📢 Mira a todos como si fueras el Gran Hermano y di: “¡Te estoy vigilando!”"
+        pregunta: "¿Cómo se llama la tragedia de Lorca sobre una joven forzada a casarse sin amor?",
+        respuesta: "Bodas de sangre",
+        penitencia: "💃 Haz una escena de drama andaluz gritando: “¡El amor es una tragedia, ay, ay, ay!”"
     },
     {
-        pregunta: "¿Quién escribió 'Crónica de una muerte anunciada'?",
-        respuesta: "Gabriel García Márquez",
-        penitencia: "💀 Narra en tercera persona una escena trágica como si fueras un reportero literario."
+        pregunta: "¿Qué novela retrata la dureza de la selva y la explotación en el Amazonas?",
+        respuesta: "La vorágine",
+        penitencia: "🌿 Camina por la sala como si atravesaras una selva llena de lodo, mosquitos y serpientes invisibles."
     },
     {
-        pregunta: "¿Cuál es el nombre del protagonista de 'La metamorfosis' de Franz Kafka?",
-        respuesta: "Gregor Samsa",
-        penitencia: "🐞 Haz de cuenta que te despiertas convertido en un insecto gigante."
+        pregunta: "¿Cuál es la novela que comienza con la frase “La virgen me lleva por mal camino”?",
+        respuesta: "La virgen de los sicarios",
+        penitencia: "😔 Habla durante 30 segundos con tono existencial y pesimista como si estuvieras en una novela de Vallejo."
     },
     {
-        pregunta: "¿Qué escritora británica creó a Harry Potter?",
-        respuesta: "J.K. Rowling",
-        penitencia: "🪄 Imita un hechizo diciendo 'Expecto Patronum' con toda tu energía mágica."
+        pregunta: "¿Quién escribió La Marquesa de Yolombó?",
+        respuesta: "Tomás Carrasquilla",
+        penitencia: "🎩 Habla como una dama antioqueña del siglo XIX: con elegancia, orgullo y mucha tradición."
     },
     {
-        pregunta: "¿Qué personaje vive en el 221B de Baker Street?",
-        respuesta: "Sherlock Holmes",
-        penitencia: "🕵️‍♂️ Saca tu lupa imaginaria y haz una deducción dramática sobre alguien en la sala."
+        pregunta: "¿Quién es el autor de El renacuajo paseador?",
+        respuesta: "Rafael Pombo",
+        penitencia: "🐸 Imita al renacuajo paseador caminando con estilo y saludando a sus amigos imaginarios."
     },
     {
-        pregunta: "¿Qué poeta escribió 'Walking Around' y 'Poema 20'?",
-        respuesta: "Pablo Neruda",
-        penitencia: "🌙 Mira al cielo y declama: 'Puedo escribir los versos más tristes esta noche...'"
+        pregunta: "¿Cuál es la obra más reconocida del escritor colombiano Jorge Isaacs?",
+        respuesta: "María",
+        penitencia: "💔 Colócate la mano en el pecho y suspira profundamente como si estuvieras muriendo de amor."
     },
     {
-        pregunta: "¿Qué libro infantil comienza con 'En un lugar muy lejano, vivía un elefante llamado Babar'?",
-        respuesta: "Las aventuras de Babar",
-        penitencia: "🐘 Camina como elefante leyendo un cuento en voz alta."
-    },
-    {
-        pregunta: "¿Qué libro tiene un sombrerero loco y un gato que desaparece?",
-        respuesta: "Alicia en el país de las maravillas",
-        penitencia: "🎩 Ríe como un sombrerero loco durante 5 segundos seguidos."
-    },
-    {
-        pregunta: "¿Qué autor colombiano escribió 'El coronel no tiene quien le escriba'?",
-        respuesta: "Gabriel García Márquez",
-        penitencia: "📬 Representa con drama cómo esperas una carta que nunca llega."
-    },
-    {
-        pregunta: "¿Quién escribió 'Rayuela', obra maestra del realismo mágico y el lenguaje experimental?",
-        respuesta: "Julio Cortázar",
-        penitencia: "🎲 Salta como si jugaras rayuela mientras recitas una frase inventada."
-    },
-    {
-        pregunta: "¿Cuál es el verdadero nombre del autor de 'El Principito'?",
-        respuesta: "Antoine de Saint-Exupéry",
-        penitencia: "🛩️ Imita un avión estrellándose suavemente mientras dices: “Lo esencial es invisible a los ojos.”"
+        pregunta: "¿Qué poeta colombiano es considerado el iniciador de la poesía negra en Colombia y escribió Cantos populares de mi tierra?",
+        respuesta: "Candelario Obeso",
+        penitencia: "🎶 Recita un verso inventado con ritmo afrocolombiano y mucho sabor, como si estuvieras cantando desde la orilla del río Magdalena."
     }
-    ];
+];
+
 
     let aciertos = 0;
     let preguntasRestantes = [...preguntas];
