@@ -278,11 +278,13 @@
       const item = preguntasRestantes.splice(index, 1)[0];
 
       const zona = document.getElementById("zonaPregunta");
-      zona.innerHTML = `
-        <p><strong>${item.pregunta}</strong></p>
-        <input id="respuestaUsuario" class="form-control" placeholder="Tu respuesta...">
-        <button class="btn btn-primary mt-2" onclick="verificarRespuesta('${item.respuesta.replace(/'/g, "\\'")}', '${item.penitencia.replace(/'/g, "\\'")}')">Responder</button>
-      `;
+      zona.innerHTML = `<p><strong>${item.pregunta}</strong></p>
+      <input id="respuestaUsuario" class="form-control" placeholder="Tu respuesta...">
+      <button class="btn btn-primary mt-2" onclick="verificarRespuesta(decodeURIComponent('${encodeURIComponent(item.respuesta)}'), decodeURIComponent('${encodeURIComponent(item.penitencia)}'))">
+        Responder
+      </button>
+    `;
+
     }
 
     window.verificarRespuesta = function (respuestaCorrecta, penitencia) {
